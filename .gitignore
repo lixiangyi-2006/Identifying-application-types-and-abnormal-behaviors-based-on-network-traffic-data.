@@ -1,0 +1,9 @@
+# 虚拟环境
+venv/
+# PyCharm配置
+.idea/
+# 缓存文件
+__pycache__/
+*.pyc
+# 数据文件（可选）
+data/raw/
