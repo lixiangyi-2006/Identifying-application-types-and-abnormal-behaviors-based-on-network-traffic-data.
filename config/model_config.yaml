@@ -1,0 +1,76 @@
+# 模型配置文件
+# 异常检测模型参数配置
+
+# XGBoost模型参数
+xgboost:
+  objective: "multi:softprob"
+  num_class: 6
+  max_depth: 6
+  learning_rate: 0.1
+  n_estimators: 100
+  subsample: 0.8
+  colsample_bytree: 0.8
+  random_state: 42
+  early_stopping_rounds: 10
+  eval_metric: "mlogloss"
+
+# LightGBM模型参数（用于参考）
+lightgbm:
+  objective: "binary"
+  max_depth: 6
+  learning_rate: 0.1
+  n_estimators: 100
+  subsample: 0.8
+  colsample_bytree: 0.8
+  random_state: 42
+  early_stopping_rounds: 10
+  eval_metric: "binary_logloss"
+
+# 数据预处理参数
+data_preprocessing:
+  train_ratio: 0.7
+  validation_ratio: 0.15
+  test_ratio: 0.15
+  feature_scaling: true
+  handle_missing: "median"
+  outlier_method: "iqr"
+  outlier_threshold: 1.5
+
+# 特征工程参数
+feature_engineering:
+  create_derived_features: true
+  normalize_features: true
+  normalize_method: "standard"  # standard, minmax, robust
+  handle_categorical: "onehot"  # onehot, label, target
+
+# 异常检测阈值
+detection_thresholds:
+  confidence_threshold: 0.5
+  anomaly_threshold: 0.5
+  low_confidence_threshold: 0.3
+  high_confidence_threshold: 0.8
+
+# 模型评估参数
+evaluation:
+  cv_folds: 5
+  scoring_metrics: ["accuracy", "precision_macro", "recall_macro", "f1_macro"]
+  plot_results: true
+  save_predictions: true
+
+# API服务配置
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+  title: "Network Anomaly Detection API"
+  version: "1.0.0"
+  max_batch_size: 1000
+  timeout: 30
+
+# 日志配置
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/anomaly_detection.log"
+  max_size: "10MB"
+  backup_count: 5
