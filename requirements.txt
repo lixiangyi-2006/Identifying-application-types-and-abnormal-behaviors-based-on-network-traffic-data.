@@ -1,13 +1,35 @@
+# 核心机器学习库
 pandas==2.3.3
 numpy==2.3.4
 scikit-learn==1.7.2
-scapy==2.6.1
 xgboost==3.0.5
-joblib==1.5.2
+lightgbm==4.3.0
+
+# 网络数据处理
+scapy==2.6.1
+pyshark==0.6.0
+
+# 数据处理和可视化
 matplotlib==3.10.7
-tensorflow==2.20.0
-keras==3.11.3
 seaborn==0.13.2
-pillow==12.0.0
+plotly==5.17.0
+
+# 模型部署和服务
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+mlflow==2.8.1
+
+# 工具库
+joblib==1.5.2
+tqdm==4.66.1
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# 测试
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# 其他
 requests==2.32.5
-protobuf==6.33.0
+pillow==12.0.0
