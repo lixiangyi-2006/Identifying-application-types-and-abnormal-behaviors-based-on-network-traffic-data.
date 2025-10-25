@@ -206,9 +206,14 @@ def single_prediction_example():
             'icmp_code': 0
         }
         
-        # 转换为numpy数组
+        # 转换为DataFrame并预处理
+        sample_df = pd.DataFrame([sample_data])
+        data_loader = NetworkDataLoader()
+        sample_df_processed = data_loader.preprocess_network_data(sample_df)
+        
+        # 获取特征列
         feature_columns = detector.xgboost_model.feature_columns
-        X = np.array([list(sample_data.values())[:len(feature_columns)]]).reshape(1, -1)
+        X = sample_df_processed[feature_columns].values
         
         # 执行预测
         result = detector.predict_single(X[0])

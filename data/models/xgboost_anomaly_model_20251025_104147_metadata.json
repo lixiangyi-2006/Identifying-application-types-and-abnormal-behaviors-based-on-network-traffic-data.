@@ -1,0 +1,12 @@
+{
+  "model_type": "XGBoostAnomalyClassifier",
+  "is_trained": true,
+  "feature_count": 31,
+  "class_count": 3,
+  "classes": [
+    "ddos",
+    "normal",
+    "port_scan"
+  ],
+  "created_at": "2025-10-25T10:41:47.004373"
+}

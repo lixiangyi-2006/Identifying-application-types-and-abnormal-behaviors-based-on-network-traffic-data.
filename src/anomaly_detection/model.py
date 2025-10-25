@@ -56,6 +56,10 @@ class XGBoostAnomalyClassifier:
             X, y, test_size=validation_split, random_state=42, stratify=y
         )
         
+        # 确保标签编码器已拟合
+        if not hasattr(self.label_encoder, 'classes_'):
+            self.label_encoder.fit(y_train)
+        
         # 创建XGBoost模型
         self.model = xgb.XGBClassifier(**self.config)
         
@@ -63,7 +67,6 @@ class XGBoostAnomalyClassifier:
         self.model.fit(
             X_train, y_train,
             eval_set=[(X_val, y_val)],
-            early_stopping_rounds=early_stopping_rounds,
             verbose=False
         )
         
@@ -82,7 +85,7 @@ class XGBoostAnomalyClassifier:
         return {
             'metrics': metrics,
             'feature_importance': self.get_feature_importance(),
-            'best_iteration': self.model.get_booster().best_iteration
+            'best_iteration': getattr(self.model.get_booster(), 'best_iteration', None)
         }
     
     def predict(self, X: np.ndarray) -> np.ndarray:

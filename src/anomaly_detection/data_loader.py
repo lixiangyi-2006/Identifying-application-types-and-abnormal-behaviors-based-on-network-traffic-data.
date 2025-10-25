@@ -177,12 +177,15 @@ class NetworkDataLoader:
         port_columns = ['src_port', 'dst_port']
         for col in port_columns:
             if col in df_processed.columns:
-                df_processed[col] = pd.to_numeric(df_processed[col], errors='coerce').astype('Int64')
+                df_processed[col] = pd.to_numeric(df_processed[col], errors='coerce').astype('float64')
         
         # 3. 特征工程
         df_processed = self._create_derived_features(df_processed)
         
-        # 4. 异常值处理
+        # 4. 编码分类特征
+        df_processed = self._encode_categorical_features(df_processed, target_column)
+        
+        # 5. 异常值处理
         df_processed = self._handle_outliers(df_processed)
         
         self.logger.info(f"预处理完成，最终形状: {df_processed.shape}")
@@ -236,6 +239,43 @@ class NetworkDataLoader:
             df_enhanced['protocol_encoded'] = df_enhanced['protocol'].map(protocol_mapping).fillna(0)
         
         return df_enhanced
+    
+    def _encode_categorical_features(self, df: pd.DataFrame, target_column: Optional[str] = None) -> pd.DataFrame:
+        """编码分类特征"""
+        df_encoded = df.copy()
+        
+        # 对IP地址进行简单编码（提取数字部分）
+        ip_columns = ['src_ip', 'dst_ip']
+        for col in ip_columns:
+            if col in df_encoded.columns:
+                # 将IP地址转换为数字（简单方法：将点分十进制转换为整数）
+                def ip_to_int(ip_str):
+                    try:
+                        parts = str(ip_str).split('.')
+                        if len(parts) == 4:
+                            return int(parts[0]) * 256**3 + int(parts[1]) * 256**2 + int(parts[2]) * 256 + int(parts[3])
+                        return 0
+                    except:
+                        return 0
+                
+                df_encoded[col] = df_encoded[col].apply(ip_to_int)
+        
+        # 对协议进行标签编码
+        if 'protocol' in df_encoded.columns:
+            protocol_mapping = {'TCP': 1, 'UDP': 2, 'ICMP': 3, 'GRE': 4, 'ESP': 5}
+            df_encoded['protocol'] = df_encoded['protocol'].map(protocol_mapping).fillna(0)
+        
+        # 对分类特征进行标签编码
+        categorical_columns = df_encoded.select_dtypes(include=['object', 'category']).columns
+        for col in categorical_columns:
+            if col != target_column:  # 不处理目标列
+                if col in df_encoded.columns:
+                    # 使用标签编码
+                    from sklearn.preprocessing import LabelEncoder
+                    le = LabelEncoder()
+                    df_encoded[col] = le.fit_transform(df_encoded[col].astype(str))
+        
+        return df_encoded
     
     def _handle_outliers(self, df: pd.DataFrame) -> pd.DataFrame:
         """处理异常值"""

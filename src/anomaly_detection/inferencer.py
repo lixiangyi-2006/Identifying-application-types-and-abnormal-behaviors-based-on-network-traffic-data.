@@ -186,11 +186,9 @@ class TwoStageAnomalyDetector:
                 labels.append('needs_review')
             elif pred == -3:
                 labels.append('detection_failed')
-            elif pred == 0:
-                labels.append('normal')
             else:
                 # 使用XGBoost的标签编码器
-                if pred < len(self.xgboost_model.label_encoder.classes_):
+                if 0 <= pred < len(self.xgboost_model.label_encoder.classes_):
                     labels.append(self.xgboost_model.label_encoder.classes_[pred])
                 else:
                     labels.append('unknown')

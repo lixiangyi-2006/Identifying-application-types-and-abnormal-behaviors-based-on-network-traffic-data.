@@ -5,6 +5,7 @@ from typing import Dict, List, Optional, Tuple, Any
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
+from sklearn.model_selection import train_test_split
 
 from .model import XGBoostAnomalyClassifier
 from shared.config import DataConfig, Labels, MODEL_DIR
@@ -35,19 +36,10 @@ class AnomalyDetectionTrainer:
         """数据预处理"""
         self.logger.info("开始数据预处理...")
         
-        # 创建数据副本
-        df_processed = df.copy()
-        
-        # 处理缺失值
-        missing_count = df_processed.isnull().sum().sum()
-        if missing_count > 0:
-            self.logger.warning(f"发现 {missing_count} 个缺失值，使用中位数填充")
-            df_processed = df_processed.fillna(df_processed.median())
-        
-        # 确保数值列是数值类型
-        numeric_columns = df_processed.select_dtypes(include=[np.number]).columns
-        for col in numeric_columns:
-            df_processed[col] = pd.to_numeric(df_processed[col], errors='coerce')
+        # 使用NetworkDataLoader进行预处理
+        from .data_loader import NetworkDataLoader
+        data_loader = NetworkDataLoader()
+        df_processed = data_loader.preprocess_network_data(df, target_column)
         
         # 处理目标变量
         if target_column in df_processed.columns:
