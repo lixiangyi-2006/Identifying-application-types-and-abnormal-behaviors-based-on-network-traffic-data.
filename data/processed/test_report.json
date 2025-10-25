@@ -1,0 +1,22 @@
+{
+  "test_timestamp": "2025-10-25T15:16:06.883638",
+  "model_path": "D:\\anamoly_detection_model_thb\\data\\models\\xgboost_anomaly_model_20251025_104147.pkl",
+  "test_data_path": "D:\\anamoly_detection_model_thb\\data\\processed\\realistic_test_data.parquet",
+  "total_samples": 85,
+  "accuracy": 0.9882352941176471,
+  "correct_predictions": 84,
+  "predicted_anomalies": 46,
+  "high_confidence_predictions": 73,
+  "needs_review": 0,
+  "average_confidence": 0.9297880859935985,
+  "confidence_std": 0.1428454826013379,
+  "prediction_distribution": {
+    "normal": 39,
+    "port_scan": 21,
+    "ddos": 25
+  },
+  "error_count": 1,
+  "error_types": {
+    "normal->port_scan": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-10-25T16:04:13.937818",
+  "strategy": "undersample",
+  "train_samples": 13510,
+  "test_samples": 54053,
+  "train_label_distribution": {
+    "brute_force": 2702,
+    "database_attack": 2702,
+    "normal": 2702,
+    "spoofing": 2702,
+    "upload_attack": 2702
+  },
+  "test_label_distribution": {
+    "normal": 36726,
+    "spoofing": 14607,
+    "database_attack": 1321,
+    "brute_force": 724,
+    "upload_attack": 675
+  }
+}

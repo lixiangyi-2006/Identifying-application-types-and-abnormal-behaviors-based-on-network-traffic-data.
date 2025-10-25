@@ -50,14 +50,13 @@ class Labels:
         "anomaly": 1
     }
     
-    # XGBoost多分类标签
+    # XGBoost多分类标签 - 细粒度异常分类
     ANOMALY_TYPES = {
         "normal": 0,
-        "ddos": 1,
-        "port_scan": 2,
-        "malware": 3,
-        "botnet": 4,
-        "intrusion": 5
+        "brute_force": 1,      # 暴力破解
+        "spoofing": 2,         # 欺骗
+        "upload_attack": 3,    # 上传危机
+        "database_attack": 4   # 数据库攻击
     }
     
     # 应用类型标签（用于应用识别）

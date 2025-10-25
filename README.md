@@ -12,7 +12,7 @@
 ### 主要特性
 
 - 🚀 **两阶段检测**：LightGBM + XGBoost 组合检测
-- 📊 **多类型异常检测**：DDoS、端口扫描、恶意软件等
+- 📊 **多类型异常检测**：暴力破解、欺骗、上传危机、数据库攻击等
 - 🔧 **完整流水线**：数据预处理、特征工程、模型训练、推理服务
 - 🌐 **RESTful API**：提供HTTP接口进行实时检测
 - 📈 **可视化分析**：训练结果和检测结果可视化
@@ -174,7 +174,7 @@ print(f"预测结果: {result['label']}")
 
 ### 标签格式
 
-- **异常类型**：normal, ddos, port_scan, malware, botnet, intrusion
+- **异常类型**：normal, brute_force, spoofing, upload_attack, database_attack
 - **检测路径**：lightgbm_benign, xgboost_anomaly, xgboost_low_confidence, needs_review
 
 ## 配置说明

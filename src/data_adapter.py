@@ -15,7 +15,13 @@ class RealDataAdapter:
     
     def __init__(self):
         self.feature_mapping = self._create_feature_mapping()
-        self.label_mapping = {0: 'normal', 1: 'ddos'}  # 根据实际标签调整
+        self.label_mapping = {
+            0: 'normal',
+            1: 'brute_force',      # 暴力破解
+            2: 'spoofing',         # 欺骗
+            3: 'upload_attack',    # 上传危机
+            4: 'database_attack'   # 数据库攻击
+        }
         
     def _create_feature_mapping(self) -> Dict[str, str]:
         """创建特征映射，将原始特征名映射到系统期望的特征名"""

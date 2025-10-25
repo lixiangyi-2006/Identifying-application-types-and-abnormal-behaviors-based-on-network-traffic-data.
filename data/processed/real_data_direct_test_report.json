@@ -1,0 +1,24 @@
+{
+  "test_timestamp": "2025-10-25T15:21:59.194726",
+  "model_path": "data/models/xgboost_real_data_model_20251025_151913.pkl",
+  "test_data_source": "data/test.xlsx",
+  "total_samples": 4006,
+  "accuracy": 0.3652021967049426,
+  "correct_predictions": 1463,
+  "high_confidence_predictions": 2032,
+  "average_confidence": 0.7924323081970215,
+  "confidence_std": 0.14764153957366943,
+  "prediction_distribution": {
+    "ddos": 1138,
+    "normal": 2868
+  },
+  "error_count": 2543,
+  "error_types": {
+    "ddos->normal": 2503,
+    "normal->ddos": 40
+  },
+  "true_label_distribution": {
+    "ddos": 3601,
+    "normal": 405
+  }
+}

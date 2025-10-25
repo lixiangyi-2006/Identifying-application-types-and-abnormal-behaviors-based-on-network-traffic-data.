@@ -1,0 +1,33 @@
+{
+  "test_timestamp": "2025-10-25T15:30:16.660954",
+  "test_purpose": "细粒度异常分类功能验证",
+  "required_attack_types": [
+    "normal",
+    "brute_force",
+    "spoofing",
+    "upload_attack",
+    "database_attack"
+  ],
+  "current_model_types": [
+    "normal",
+    "ddos",
+    "port_scan",
+    "malware",
+    "botnet",
+    "intrusion"
+  ],
+  "missing_types": [
+    "spoofing",
+    "database_attack",
+    "brute_force",
+    "upload_attack"
+  ],
+  "dataset_limitation": "训练数据只有二分类标签(0/1)",
+  "conclusion": "当前模型不具备细粒度异常分类功能",
+  "recommendations": [
+    "需要获取包含细粒度攻击标签的训练数据",
+    "需要修改模型配置支持5种攻击类型",
+    "需要重新训练模型",
+    "需要验证细粒度分类性能"
+  ]
+}

@@ -1,10 +1,10 @@
 # 模型配置文件
 # 异常检测模型参数配置
 
-# XGBoost模型参数
+# XGBoost模型参数 - 细粒度异常分类
 xgboost:
   objective: "multi:softprob"
-  num_class: 6
+  num_class: 5
   max_depth: 6
   learning_rate: 0.1
   n_estimators: 100
