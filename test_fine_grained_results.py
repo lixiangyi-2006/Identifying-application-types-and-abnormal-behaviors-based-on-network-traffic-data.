@@ -11,6 +11,11 @@ import logging
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
+import os
+
+# 添加项目路径
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # 设置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -20,8 +25,12 @@ def load_model(model_path):
     """加载训练好的模型"""
     logger.info(f"加载模型: {model_path}")
     
+    # 直接读取模型文件内容
     with open(model_path, 'rb') as f:
         model_data = pickle.load(f)
+    
+    # 检查模型数据结构
+    logger.info(f"模型数据键: {list(model_data.keys())}")
     
     return model_data
 

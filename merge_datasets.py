@@ -44,14 +44,44 @@ def merge_datasets():
     """整合所有数据集"""
     logger.info("开始整合数据集...")
     
-    # 数据集路径和标签映射
-    datasets = {
-        "D:/data1/良性数据集.xlsx": "normal",
-        "D:/data1/暴力破解（猜解密码等攻击）的数据集.xlsx": "brute_force", 
-        "D:/data1/欺骗（IP来源伪造等）的数据集.xlsx": "spoofing",
-        "D:/data1/上传危机的数据集.xlsx": "upload_attack",
-        "D:/data1/数据库攻击的数据集.xlsx": "database_attack"
+    # 数据集路径和标签映射 - 自动匹配文件
+    data_dir = "D:/data1"
+    datasets = {}
+    
+    # 根据实际文件名映射（从dir输出看到的）
+    file_labels = {
+        '良性数据集.xlsx': 'normal',
+        '暴力破解2.xlsx': 'brute_force',  # 暴力破解2.xlsx
+        '数据库攻击的数据集.xlsx': 'database_attack',
+        '欺骗2.xlsx': 'spoofing',  # 欺骗2.xlsx  
+        '上传危机2.xlsx': 'upload_attack'  # 上传危机2.xlsx
     }
+    
+    # 遍历文件并匹配
+    for filename in os.listdir(data_dir):
+        if not filename.endswith('.xlsx'):
+            continue
+            
+        filepath = os.path.join(data_dir, filename)
+        
+        # 根据文件名匹配标签
+        if '良性' in filename or '正常' in filename:
+            label = "normal"
+        elif '暴力' in filename or '密码' in filename:
+            label = "brute_force"
+        elif '欺骗' in filename or '伪' in filename:
+            label = "spoofing"
+        elif '上传' in filename and '危机' in filename:
+            label = "upload_attack"
+        elif '数据库' in filename:
+            label = "database_attack"
+        else:
+            # 无法识别，跳过
+            logger.warning(f"无法识别文件: {filename}")
+            continue
+        
+        datasets[filepath] = label
+        logger.info(f"匹配文件: {filename} -> {label}")
     
     all_datasets = []
     
